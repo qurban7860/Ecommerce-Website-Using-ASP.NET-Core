@@ -1,0 +1,13 @@
+## .NET build output
+[Bb]in/
+[Oo]bj/
+
+## IDE files
+.vs/
+.idea/
+*.user
+*.suo
+
+## Local settings and logs
+appsettings.Development.json
+*.log
