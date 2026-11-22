@@ -1,0 +1,32 @@
+@model IEnumerable<Product>
+@{ ViewData["Title"] = "Products"; }
+<section class="hero">
+    <p class="eyebrow">WELCOME TO SIMPLE STORE</p>
+    <h1>Find something you’ll love.</h1>
+    <p>Browse our sample products and add your favorites to the cart.</p>
+    <form method="get" class="search-form">
+        <input name="search" value="@ViewBag.Search" placeholder="Search products or categories..." />
+        <button type="submit">Search</button>
+    </form>
+</section>
+<div class="section-heading"><h2>Featured products</h2><span>@Model.Count() products</span></div>
+<div class="product-grid">
+@foreach (var product in Model)
+{
+    <article class="product-card">
+        <a asp-action="Details" asp-route-id="@product.Id"><img src="@product.ImageUrl" alt="@product.Name" /></a>
+        <div class="product-info">
+            <span class="category">@product.Category</span>
+            <h3><a asp-action="Details" asp-route-id="@product.Id">@product.Name</a></h3>
+            <p>@product.Description</p>
+            <div class="product-bottom"><strong>$@product.Price.ToString("0.00")</strong>
+                <form asp-controller="Cart" asp-action="Add" method="post">
+                    <input type="hidden" name="productId" value="@product.Id" />
+                    <button type="submit">Add to cart</button>
+                </form>
+            </div>
+        </div>
+    </article>
+}
+</div>
+@if (!Model.Any()) { <p class="empty-state">No products found. Try another search.</p> }
